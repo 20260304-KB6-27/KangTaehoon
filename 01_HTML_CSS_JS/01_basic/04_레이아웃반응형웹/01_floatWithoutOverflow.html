@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div.container {
+                overflow: hidden;
+            }
+            /* float 쓸 경우 폭은 잡히는데 높이는 안잡힘 
+             -> overflow를 사용하여 높이를 잡게해줌 
+             */
+            div.item {
+                float: left;
+                margin: 0 3px;
+                padding: 10px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam
+            veritatis optio non illo illum nisi adipisci dicta, pariatur fuga
+            repellat.
+        </p>
+        <div class="container">
+            <div class="item">메뉴 - 1</div>
+            <div class="item">메뉴 - 2</div>
+            <div class="item">메뉴 - 3</div>
+            <div class="item">메뉴 - 4</div>
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam
+            veritatis optio non illo illum nisi adipisci dicta, pariatur fuga
+            repellat.
+        </p>
+    </body>
+</html>
