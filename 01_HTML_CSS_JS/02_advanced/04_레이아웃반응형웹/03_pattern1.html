@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* PC default */
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                width: 960px;
+                margin: 0 auto;
+                overflow: hidden;
+            }
+            #menu {
+                width: 260px;
+                float: left;
+            }
+            #section {
+                width: 700px;
+                float: right; /* left로 입력해도 상관없음*/
+            }
+            li {
+                list-style: none;
+            }
+            @media screen and (max-width: 767px) {
+                /* 스마트폰 사이즈에서는 전부 해제 */
+                body {
+                    width: auto;
+                }
+                #menu {
+                    width: auto;
+                    float: none;
+                }
+                #section {
+                    width: auto;
+                    float: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="menu">
+            <ul>
+                <li>메뉴A</li>
+                <li>메뉴B</li>
+                <li>메뉴C</li>
+            </ul>
+        </div>
+        <div id="section">
+            <h1>Lorem ipsum</h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Officiis voluptas rerum ea nostrum. Error modi blanditiis maxime
+                earum placeat aspernatur voluptates? Officiis odio laudantium
+                corporis nesciunt provident ullam molestiae facilis, tempore
+                deleniti earum, nostrum voluptatibus at aliquam, soluta saepe
+                consectetur nam. Voluptas labore adipisci cupiditate dolores
+                soluta tempore beatae non sed ab quae doloremque, consectetur ut
+                repellat et doloribus? Illum possimus officiis corporis ut quasi
+                quis? Ab delectus ratione quidem accusantium molestiae
+                voluptates unde deleniti quas laborum dolorem exercitationem
+                fuga veniam sunt eum, velit molestias ad nostrum. Maxime harum
+                necessitatibus animi asperiores excepturi unde, quaerat ipsa
+                possimus dolores cumque, beatae ducimus nulla fugiat, nemo
+                maiores quod id tenetur cum quasi obcaecati quisquam quo.
+                Delectus libero illum, fuga vero id accusamus error asperiores
+                sapiente provident magni maiores mollitia quod velit nesciunt
+                ullam saepe sequi rerum rem molestias dolore, praesentium modi
+                dolores? Provident hic, repellat voluptatum dignissimos a
+                nostrum omnis! Consequuntur, iusto.
+            </p>
+        </div>
+    </body>
+</html>
