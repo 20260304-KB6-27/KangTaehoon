@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script>
+            function call(num, callback) {
+                for (let i = 0; i < num; i++) {
+                    callback(); // 매개변수로 전달된 함수를 호출
+                }
+            }
+
+            // 변수를 선언합니다.
+            const fun = function () {
+                alert('함수 호출');
+            };
+            call(3, fun);
+        </script>
+    </head>
+    <body></body>
+</html>

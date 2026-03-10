@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script>
+            const date = new Date();
+            const h = date.getHours();
+            let str = '';
+            // 5
+            if (h < 5) {
+                str = '잠을 자렴...';
+            } else if (h < 7) {
+                str = '준비';
+            } else if (h < 9) {
+                str = '출근';
+            } else if (h < 12) {
+                str = '빈둥 빈둥';
+            } else if (h < 14) {
+                str = '식사';
+            } else {
+                str = '여러 가지 업무를 수행합니다.';
+            }
+            alert(str);
+            // 7
+            // 9
+            // 12
+            // 14
+        </script>
+    </head>
+    <body></body>
+</html>
