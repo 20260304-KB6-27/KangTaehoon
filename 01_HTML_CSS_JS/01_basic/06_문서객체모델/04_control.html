@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script>
+            window.onload = () => {
+                let output = '';
+                for (let i = 0; i < 10; i++) {
+                    output += '<h1>Header - ' + i + '</h1>';
+                }
+                document.body.innerText = output;
+                // document.body.innerHTML = output;
+                // 보안 문제 발생 <script> 실행 가능
+                // document.body.innerHTML = output;
+            };
+        </script>
+    </head>
+
+    <body></body>
+</html>
