@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue 3 연습용 Composition</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <p>1보다 큰 수: <input type="text" v-model.number="num" /></p>
+            <p>1부터 입력한 값까지의 합: {{sum}}</p>
+            <p>1부터 입력한 값까지의 합: {{sum}}</p>
+            <p>1부터 입력한 값까지의 합: {{sum}}</p>
+        </div>
+
+        <script>
+            const { createApp, ref, computed, onMounted, onUpdated } = Vue;
+
+            createApp({
+                setup() {
+                    const num = ref(0);
+                    const sum = computed(() => {
+                        console.log('## num', num.value);
+                        let n = parseInt(num.value);
+                        if (Number.isNaN(n)) return 0;
+                        return (n * (n + 1)) / 2;
+                    });
+                    onMounted(() => {
+                        console.log(`mounted`);
+                    });
+                    onUpdated(() => {
+                        console.log('updated');
+                    });
+                    return {
+                        num,
+                        sum,
+                    };
+                },
+            }).mount('#app');
+        </script>
+    </body>
+</html>
