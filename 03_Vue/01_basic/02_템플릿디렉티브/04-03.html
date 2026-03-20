@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Script스니펫</title>
+        <script></script>
+    </head>
+
+    <body>
+        <div id="app">
+            <p>1보다 큰 수 : <input type="text" v-model.number="num" /></p>
+            <p>1부터 입력한 값까지의 합: {{sum}}</p>
+            <p>1부터 입력한 값까지의 합: {{sum}}</p>
+            <p>1부터 입력한 값까지의 합: {{sum}}</p>
+        </div>
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            const { createApp } = Vue;
+            let vm = createApp({
+                name: 'App',
+                data() {
+                    return { num: 0 };
+                },
+                computed: {
+                    sum() {
+                        console.log('## num', this.num);
+                        let n = parseInt(this.num);
+                        if (Number.isNaN(n)) return 0;
+                        return (n * (n + 1)) / 2;
+                    },
+                },
+            });
+            vm.mount('#app');
+        </script>
+    </body>
+</html>

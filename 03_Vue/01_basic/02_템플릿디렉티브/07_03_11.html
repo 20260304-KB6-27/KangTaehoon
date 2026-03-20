@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vue 3 연습용 Composition</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <p>잔고: <input v-model.number="balance" @change="changeName" /></p>
+            <p>회원님의 등급: {{memberClass}}</p>
+        </div>
+
+        <script>
+            const { createApp, ref } = Vue;
+
+            createApp({
+                setup() {
+                    const balance = ref(0);
+                    const memberClass = ref('');
+
+                    const changeName = (e) => {
+                        if (balance.value < 200000) {
+                            memberClass.value = 'Basic';
+                        } else if (balance.value < 500000) {
+                            memberClass.value = 'Bronze';
+                        } else if (balance.value < 1000000) {
+                            memberClass.value = 'Silver';
+                        } else {
+                            memberClass.value = 'Gold';
+                        }
+                    };
+
+                    return {
+                        balance,
+                        memberClass,
+                        changeName,
+                    };
+                },
+            }).mount('#app');
+        </script>
+    </body>
+</html>
