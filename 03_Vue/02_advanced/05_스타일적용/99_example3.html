@@ -6,17 +6,27 @@
         <title>Vue 게시판 목록</title>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     </head>
+
     <body>
         <div id="app">
             <h1>📌 게시판 목록 v3</h1>
-            <div>
-                <input type="text" />
-                <button>입력</button>
+            <div class="add-container">
+                <input
+                    type="text"
+                    v-model.trim="title"
+                    placeholder="새 게시물 제목"
+                />
+                <input
+                    type="text"
+                    v-model.trim="content"
+                    placeholder="새 게시물 내용"
+                />
+                <button @click.stop="addPost">작성</button>
             </div>
             <ul>
                 <li
-                    v-for="(val, index) in posts"
-                    :key="val.no"
+                    v-for="(val, index) in sortedPosts"
+                    :key="val.id"
                     class="post-item-container"
                 >
                     <div class="post-item" @click="togglePost(val)">
@@ -26,20 +36,55 @@
                         >
                     </div>
 
-                    <div class="post-content" v-if="val.isOpened">
+                    <div
+                        class="post-content"
+                        v-if="val.isOpened && !val.isEditing"
+                    >
                         <h2>{{ val.title }}</h2>
                         <p>{{ val.content }}</p>
+                        <button @click.stop="val.isEditing = true">수정</button>
+                        <!-- 삭제 메소드 추가 -->
+                        <button
+                            @click.stop="val.isOpened = false"
+                            @click="deletePost(val.no)"
+                        >
+                            삭제
+                        </button>
                         <button @click.stop="val.isOpened = false">닫기</button>
+                    </div>
+                    <div
+                        class="post-content"
+                        v-else-if="val.isOpened && val.isEditing"
+                    >
+                        <input type="text" v-model="val.title" />
+                        <br />
+                        <textarea v-model="val.content"></textarea>
+                        <br />
+
+                        <!-- 저장 -->
+                        <button
+                            @click.stop="val.isOpened = false; val.isEditing = false"
+                        >
+                            저장
+                        </button>
+                        <!-- 취소 -->
+                        <button @click.stop="val.isEditing = false">
+                            취소
+                        </button>
                     </div>
                 </li>
             </ul>
         </div>
 
         <script>
-            const { createApp, ref } = Vue;
+            const { createApp, ref, computed } = Vue;
 
             createApp({
                 setup() {
+                    let ts = new Date().getTime();
+                    const title = ref('');
+                    const content = ref('');
+                    const curNum = ref(11);
                     const posts = ref([
                         {
                             no: 1,
@@ -57,6 +102,7 @@
                         },
                         {
                             no: 3,
+                            id: ts + 1,
                             title: 'Node.js와 Express',
                             content:
                                 'Node.js는 서버 측에서 JavaScript를 실행할 수 있도록 하는 런타임이며, Express는 이를 위한 경량 웹 프레임워크입니다.',
@@ -112,34 +158,47 @@
                             isOpened: false,
                         },
                     ]);
-                    const postContent = ref({
-                        title: '',
-                        content: '',
-                    });
 
-                    const changePostContent = (title, content) => {
-                        postContent.value = {
-                            title: title,
-                            content: content,
-                        };
+                    const deletePost = (id) => {
+                        const idx = posts.value.findIndex(
+                            (item) => item.no === id,
+                        );
+                        posts.value.splice(idx, 1);
                     };
 
-                    const closed = (e) => {
-                        postContent.value = {
-                            title: '',
-                            content: '',
-                        };
+                    const addPost = () => {
+                        console.log('add');
+
+                        if (title.value === '') return;
+                        posts.value.push({
+                            no: curNum.value,
+                            id: new Date().getTime(),
+                            title: title.value,
+                            content: content.value,
+                            isOpened: false,
+                        });
+                        curNum.value += 1;
+                        title.value = '';
+                        content.value = '';
                     };
                     const togglePost = (post) => {
                         post.isOpened = !post.isOpened;
                     };
 
+                    const sortedPosts = computed(() => {
+                        return [...posts.value].sort((a, b) => {
+                            return b.no - a.no;
+                        });
+                    });
+
                     return {
                         posts,
-                        postContent,
-                        closed,
-                        changePostContent,
+                        title,
+                        content,
                         togglePost,
+                        sortedPosts,
+                        deletePost,
+                        addPost,
                     };
                 },
             }).mount('#app');
@@ -153,6 +212,31 @@
             ul {
                 list-style-type: none;
                 padding: 0;
+            }
+            .add-container {
+                display: flex;
+                justify-content: center;
+                align-items: stretch;
+                gap: 20px;
+                height: 40px;
+            }
+            .post-content input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .post-content textarea {
+                width: 100%;
+                height: 100px;
+            }
+            .add-container input,
+            .add-container button {
+                /* 테두리와 패딩을 포함해서 높이를 계산하도록 설정 (매우 중요) */
+                box-sizing: border-box;
+                height: 100%; /* 부모 높이(40px)를 그대로 따름 */
+                margin: 0; /* 기본 여백 제거 */
+                padding: 8px 12px; /* 내부 여백 통일 */
+                border: 1px solid #ccc;
+                border-radius: 4px;
             }
             .post-item {
                 cursor: pointer;
@@ -173,6 +257,7 @@
                 background: #fff;
             }
             button {
+                margin: 0 2px;
                 margin-top: 10px;
                 padding: 5px 10px;
                 border: none;
